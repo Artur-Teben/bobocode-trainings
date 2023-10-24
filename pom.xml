@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.bobocode</groupId>
-    <artifactId>SimpleRESTDemo</artifactId>
+    <artifactId>PureRESTDemo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SimpleRESTDemo</name>
-    <description>SimpleRESTDemo</description>
+    <name>PureRESTDemo</name>
+    <description>PureRESTDemo</description>
     <properties>
         <java.version>17</java.version>
     </properties>
