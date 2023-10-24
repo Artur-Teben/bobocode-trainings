@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -19,15 +20,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void addUser(User user) {
+    public User addUser(User user) {
         Long id = user.getId();
         userRepository.addUser(user);
         log.info("User with ID: {} was added", id);
+        return user;
     }
 
     @Cacheable("user")
-    public User getUser(Long id) {
-        return Optional.ofNullable(userRepository.getUser(id))
+    public User getUserById(Long id) {
+        return Optional.ofNullable(userRepository.getUserById(id))
                 .orElseThrow(() -> new UserNotFoundException(String.format("User with ID: %s wasn't found", id)));
     }
 
@@ -42,14 +44,19 @@ public class UserService {
         log.info("User with ID: {} was deleted", id);
     }
 
-    public void addNote(Long userId, Note note) {
+    public Note addNote(Long userId, Note note) {
         checkUserExistence(userId);
         userRepository.addNote(userId, note);
         log.info("Note was added to user with ID: {}", userId);
+        return note;
     }
 
     private void checkUserExistence(Long userId) {
-        Optional.ofNullable(userRepository.getUser(userId))
+        Optional.ofNullable(userRepository.getUserById(userId))
                 .orElseThrow(() -> new UserNotFoundException(String.format("User with ID: %s wasn't found", userId)));
+    }
+
+    public List<Note> getUserNotes(Long userId) {
+        return userRepository.getUserNotes(userId);
     }
 }

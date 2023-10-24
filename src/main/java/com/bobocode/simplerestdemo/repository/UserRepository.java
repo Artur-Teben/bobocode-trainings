@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -17,7 +18,7 @@ public class UserRepository {
         users.put(user.getId(), user);
     }
 
-    public User getUser(Long id) {
+    public User getUserById(Long id) {
         return users.get(id);
     }
 
@@ -31,5 +32,9 @@ public class UserRepository {
 
     public void addNote(Long userId, Note note) {
         users.get(userId).getNotes().add(note);
+    }
+
+    public List<Note> getUserNotes(Long userId) {
+        return users.get(userId).getNotes();
     }
 }
